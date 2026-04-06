@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta Estratégica — Daath Studio × [Empresa Médica]</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;0,700;1,300;1,600&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#06080d;--bg2:#0c0f17;--bg3:#111620;--surface:#161d2c;--surface2:#1c2538;
+    --border:rgba(255,255,255,0.06);--border-b:rgba(56,189,248,0.2);
+    --blue:#38bdf8;--blue-d:rgba(56,189,248,0.1);
+    --teal:#2dd4bf;--teal-d:rgba(45,212,191,0.1);
+    --gold:#d4a853;--gold-d:rgba(212,168,83,0.1);
+    --green:#34d399;--red:#f87171;--orange:#fb923c;
+    --text:#e2e8f4;--dim:#6b7a96;--muted:#3d4a60;
+    --fd:'Cormorant Garamond',serif;--fb:'DM Sans',sans-serif;--fm:'Space Mono',monospace;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--fb);font-size:15px;line-height:1.6;overflow-x:hidden}
+  .grid-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(56,189,248,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.022) 1px,transparent 1px);background-size:64px 64px;pointer-events:none;z-index:0}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 44px;position:relative;z-index:1}
+  section{padding:88px 0;position:relative;z-index:1}
+  .hr{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent)}
+  
+  /* COVER */
+  .cover{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0;overflow:hidden}
+  .glow{position:absolute;border-radius:50%;pointer-events:none}
+  .g1{width:700px;height:700px;background:radial-gradient(circle,rgba(56,189,248,.07) 0%,transparent 70%);right:-180px;top:40%;transform:translateY(-50%)}
+  .g2{width:400px;height:400px;background:radial-gradient(circle,rgba(45,212,191,.05) 0%,transparent 70%);left:-80px;bottom:0}
+  .tag{font-family:var(--fm);font-size:11px;color:var(--blue);letter-spacing:3px;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:28px}
+  .tag::before{content:'';display:block;width:36px;height:1px;background:var(--blue)}
+  h1{font-family:var(--fd);font-size:clamp(50px,7vw,90px);font-weight:300;line-height:1.0;letter-spacing:-1px;margin-bottom:6px}
+  h1 em{color:var(--blue);font-weight:700;font-style:italic}
+  .sub{font-family:var(--fd);font-size:clamp(20px,3vw,36px);font-weight:300;color:var(--dim);font-style:italic;margin-bottom:44px}
+  .meta{display:flex;gap:36px;flex-wrap:wrap}
+  .mi .l{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+  .mi .v{font-size:14px;color:var(--text);font-weight:500;margin-top:2px}
+  .badge-hero{display:inline-flex;align-items:center;gap:8px;background:var(--blue-d);border:1px solid var(--border-b);border-radius:4px;padding:8px 16px;font-family:var(--fm);font-size:11px;color:var(--blue);letter-spacing:1px;margin-top:28px}
+  .badge-hero::before{content:'◆';font-size:8px}
+
+  h2{font-family:var(--fd);font-size:clamp(32px,4.5vw,58px);font-weight:600;line-height:1.05;margin-bottom:16px;letter-spacing:-.5px}
+  h2 em{font-style:italic;color:var(--blue);font-weight:300}
+  .sdesc{font-size:16px;color:var(--dim);max-width:600px;line-height:1.7;margin-bottom:52px}
+
+  /* ── KEY CLARIFICATION SECTION ── */
+  .clarity-box{background:var(--surface);border:1px solid var(--border-b);border-radius:14px;padding:48px;margin-bottom:56px;position:relative;overflow:hidden}
+  .clarity-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--teal))}
+  .clarity-title{font-family:var(--fd);font-size:36px;font-weight:700;color:var(--text);margin-bottom:8px}
+  .clarity-title span{color:var(--blue);font-style:italic}
+  .clarity-sub{font-size:15px;color:var(--dim);margin-bottom:40px;max-width:620px;line-height:1.7}
+
+  .flow-grid{display:grid;grid-template-columns:1fr 80px 1fr 80px 1fr;align-items:start;gap:0}
+  .flow-step{text-align:center;padding:24px 16px;background:var(--bg2);border:1px solid var(--border);border-radius:10px}
+  .flow-step.human{border-color:rgba(251,146,60,0.35);background:rgba(251,146,60,0.05)}
+  .flow-step.auto{border-color:var(--border-b);background:var(--blue-d)}
+  .flow-icon{font-size:28px;margin-bottom:10px;display:block}
+  .flow-label{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:6px}
+  .flow-step.human .flow-label{color:var(--orange)}
+  .flow-step.auto .flow-label{color:var(--blue)}
+  .flow-name{font-size:14px;font-weight:600;color:var(--text);margin-bottom:6px}
+  .flow-desc{font-size:12px;color:var(--dim);line-height:1.5}
+  .flow-arrow{display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:20px;padding-top:40px}
+
+  .clarity-pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:32px;padding-top:28px;border-top:1px solid var(--border)}
+  .cp-human{background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);color:var(--orange);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500}
+  .cp-auto{background:var(--blue-d);border:1px solid var(--border-b);color:var(--blue);padding:6px 14px;border-radius:20px;font-size:12px;font-weight:500}
+  .cp-label{font-family:var(--fm);font-size:10px;color:var(--muted);align-self:center;letter-spacing:1px;margin-right:4px}
+
+  /* VS */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border-radius:12px;overflow:hidden}
+  .vc{background:var(--bg2);padding:36px}
+  .vc.us{background:var(--surface)}
+  .vch{display:flex;align-items:center;gap:10px;margin-bottom:28px}
+  .vd{width:8px;height:8px;border-radius:50%;background:var(--muted)}
+  .vd.on{background:var(--blue);box-shadow:0 0 10px var(--blue)}
+  .vct{font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+  .vc.us .vct{color:var(--blue)}
+  .vi{display:flex;align-items:flex-start;gap:10px;padding:11px 0;border-bottom:1px solid var(--border);font-size:14px;color:var(--dim)}
+  .vi:last-child{border-bottom:none}
+  .vi.y{color:var(--text)}.vi.y .ic{color:var(--green)}
+  .vi.n .ic{color:var(--red);opacity:.4}
+  .vi.ex{color:var(--blue)}.vi.ex .ic{color:var(--blue)}
+  .ic{flex-shrink:0;margin-top:2px;font-size:12px}
+
+  /* MODULE FLOW — what auto looks like in practice */
+  .autoflow{background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:14px}
+  .afh{padding:20px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:14px;cursor:pointer;transition:background .2s}
+  .afh:hover{background:var(--surface)}
+  .aft{font-size:15px;font-weight:600;color:var(--text)}
+  .afs{font-family:var(--fm);font-size:10px;color:var(--blue);background:var(--blue-d);border:1px solid var(--border-b);border-radius:3px;padding:2px 7px;margin-left:auto}
+  .afb{max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease;padding:0 28px}
+  .afb.open{max-height:500px;padding:24px 28px}
+
+  .timeline{position:relative;padding-left:32px}
+  .timeline::before{content:'';position:absolute;left:7px;top:6px;bottom:6px;width:1px;background:linear-gradient(180deg,var(--blue),var(--teal),transparent)}
+  .tl-step{position:relative;padding:0 0 20px 24px;font-size:13.5px;color:var(--dim);line-height:1.5}
+  .tl-step:last-child{padding-bottom:0}
+  .tl-step::before{content:'';position:absolute;left:0;top:6px;width:14px;height:14px;border-radius:50%;background:var(--bg);border:2px solid var(--blue)}
+  .tl-step.auto-step::before{background:var(--blue-d);border-color:var(--blue)}
+  .tl-step.human-step::before{border-color:var(--orange)}
+  .tl-who{font-family:var(--fm);font-size:9px;letter-spacing:2px;text-transform:uppercase;margin-bottom:3px;display:block}
+  .tl-who.h{color:var(--orange)}
+  .tl-who.a{color:var(--blue)}
+  .tl-step strong{color:var(--text)}
+  .tl-ex{margin-top:6px;background:var(--surface);border:1px solid var(--border);border-radius:5px;padding:8px 12px;font-size:12px;color:var(--teal);font-style:italic}
+
+  /* PLANS */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border-radius:16px;overflow:hidden}
+  .pc{background:var(--bg2);padding:38px 30px;position:relative;transition:background .2s}
+  .pc:hover{background:var(--surface)}
+  .pc.hot{background:var(--surface)}
+  .pc.hot::before{content:'RECOMENDADO';position:absolute;top:0;left:0;right:0;text-align:center;padding:7px;background:var(--blue);color:var(--bg);font-family:var(--fm);font-size:10px;letter-spacing:3px;font-weight:700}
+  .pc.hot{padding-top:50px}
+  .ptier{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
+  .pname{font-family:var(--fd);font-size:28px;font-weight:700;margin-bottom:3px}
+  .pline{font-size:13px;color:var(--dim);margin-bottom:26px;font-style:italic}
+  .pprice{margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid var(--border)}
+  .pprice .amt{font-family:var(--fd);font-size:46px;font-weight:700;line-height:1}
+  .pc.hot .pprice .amt{color:var(--blue)}
+  .pprice .per{font-size:13px;color:var(--muted);margin-left:4px}
+  .pprice .note{font-family:var(--fm);font-size:10px;color:var(--muted);margin-top:4px;display:block}
+  .pf{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;color:var(--dim);line-height:1.4}
+  .pf:last-of-type{border-bottom:none}
+  .ck{color:var(--green);flex-shrink:0;margin-top:1px;font-size:11px}
+  .pt{font-weight:500;color:var(--text);display:block;margin-bottom:1px}
+  .ps{font-size:11.5px;color:var(--muted);line-height:1.4}
+  .pf.hi .pt{color:var(--blue)}
+  .pcta{display:block;margin-top:30px;padding:13px 20px;text-align:center;border-radius:6px;font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;font-weight:700;border:1px solid var(--border);color:var(--dim);transition:all .2s;cursor:pointer}
+  .pcta:hover{border-color:var(--blue);color:var(--blue);background:var(--blue-d)}
+  .pc.hot .pcta{background:var(--blue);border-color:var(--blue);color:var(--bg)}
+  .pc.hot .pcta:hover{background:transparent;color:var(--blue)}
+
+  /* TABLE */
+  .tbl{width:100%;border-collapse:collapse}
+  .tbl th{padding:12px 16px;text-align:left;font-family:var(--fm);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--border);background:var(--bg2)}
+  .tbl th:not(:first-child){text-align:center}
+  .tbl td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:13px;color:var(--dim);background:var(--bg)}
+  .tbl tr:hover td{background:var(--surface)}
+  .tbl td:not(:first-child){text-align:center}
+  .tbl td:first-child{font-weight:500;color:var(--text)}
+  .tbl .cat td{font-family:var(--fm);font-size:9px;letter-spacing:2px;color:var(--blue);text-transform:uppercase;background:rgba(56,189,248,0.04);padding:8px 16px;border-bottom:1px solid var(--border-b)}
+  .cy{color:var(--green);font-size:13px}
+  .cn{color:var(--muted);opacity:.25}
+  .cv{color:var(--blue);font-family:var(--fm);font-size:11px;font-weight:700}
+
+  /* MODULES */
+  .mods{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .mc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:26px;transition:border-color .2s,background .2s}
+  .mc:hover{border-color:var(--border-b);background:var(--surface)}
+  .mc.nb{border-color:rgba(212,168,83,.15)}
+  .mc.nb:hover{border-color:var(--gold)}
+  .mh{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+  .mn{font-size:15px;font-weight:600;color:var(--text)}
+  .mb{font-family:var(--fm);font-size:9px;letter-spacing:1px;padding:3px 7px;border-radius:3px;text-transform:uppercase;white-space:nowrap;flex-shrink:0;margin-top:2px}
+  .bl{background:rgba(52,211,153,.1);color:var(--green);border:1px solid rgba(52,211,153,.2)}
+  .bb{background:var(--gold-d);color:var(--gold);border:1px solid rgba(212,168,83,.2)}
+  .ba{background:var(--blue-d);color:var(--blue);border:1px solid var(--border-b)}
+  .md{font-size:13px;color:var(--dim);line-height:1.6}
+  .mt{margin-top:12px;display:flex;flex-wrap:wrap;gap:5px}
+  .tp{font-family:var(--fm);font-size:10px;color:var(--muted);background:var(--surface2);border:1px solid var(--border);border-radius:3px;padding:2px 6px}
+
+  /* ADDONS */
+  .ads{display:flex;flex-direction:column;gap:1px;background:var(--border);border-radius:12px;overflow:hidden}
+  .ar{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;background:var(--bg2);transition:background .2s}
+  .ar:hover{background:var(--surface)}
+  .al{display:flex;align-items:center;gap:14px}
+  .ai{width:36px;height:36px;border-radius:8px;background:var(--blue-d);border:1px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+  .an{font-size:14px;font-weight:500;color:var(--text)}
+  .as2{font-size:11.5px;color:var(--muted);margin-top:1px}
+  .ap{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--blue)}
+
+  /* ROADMAP */
+  .rm{position:relative}
+  .rm::before{content:'';position:absolute;left:19px;top:20px;bottom:20px;width:1px;background:linear-gradient(180deg,var(--blue),var(--teal),transparent)}
+  .rs{display:flex;gap:28px;padding:22px 0;border-bottom:1px solid var(--border)}
+  .rs:last-child{border-bottom:none}
+  .rd{width:40px;height:40px;border-radius:50%;background:var(--surface);border:2px solid var(--border-b);display:flex;align-items:center;justify-content:center;font-family:var(--fm);font-size:12px;color:var(--blue);font-weight:700;flex-shrink:0;z-index:1}
+  .rw{font-family:var(--fm);font-size:10px;color:var(--blue);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+  .rt{font-size:15px;font-weight:600;color:var(--text);margin-bottom:4px}
+  .ri{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+  .rp{font-size:11px;color:var(--muted);background:var(--surface);border:1px solid var(--border);border-radius:3px;padding:2px 7px;font-family:var(--fm)}
+
+  /* RESULTS */
+  .res{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:36px}
+  .rc{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:26px;text-align:center}
+  .rn{font-family:var(--fd);font-size:50px;font-weight:700;line-height:1;color:var(--blue);margin-bottom:6px}
+  .rl{font-size:13px;color:var(--dim);line-height:1.4}
+
+  /* FOOTER */
+  .ft{padding:52px 0;text-align:center;border-top:1px solid var(--border);position:relative;z-index:1}
+  .fl{font-family:var(--fd);font-size:38px;font-weight:700;color:var(--text);margin-bottom:6px}
+  .fl span{color:var(--blue)}
+  .fs{font-size:13px;color:var(--muted);margin-bottom:32px;font-style:italic}
+  .fc{display:flex;justify-content:center;gap:36px;flex-wrap:wrap}
+  .fci .l{font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:2px;margin-bottom:3px}
+  .fci .v{font-size:13px;color:var(--blue)}
+
+  .fu{opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  .fu.vis{opacity:1;transform:translateY(0)}
+
+  @media(max-width:768px){
+    .wrap{padding:0 18px}
+    .vs,.plans,.mods,.res,.flow-grid{grid-template-columns:1fr}
+    .flow-arrow{display:none}
+    h1{font-size:38px}
+  }
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+
+<!-- ─── COVER ─── -->
+<section class="cover">
+<div class="wrap">
+  <div class="glow g1"></div><div class="glow g2"></div>
+  <div class="tag">Propuesta comercial — B2B Distribución Médica</div>
+  <h1>Daath<em>Studio</em><br>× [Empresa]</h1>
+  <p class="sub">Tecnología y Marketing para<br>distribuidoras médicas con visitadores en campo</p>
+  <div class="meta">
+    <div class="mi"><div class="l">Sector</div><div class="v">Distribución médica B2B</div></div>
+    <div class="mi"><div class="l">Líneas</div><div class="v">Dermatología · Ginecología</div></div>
+    <div class="mi"><div class="l">Canal de venta</div><div class="v">Visitadores médicos + Meta Ads</div></div>
+    <div class="mi"><div class="l">Inversión máxima</div><div class="v">$2.800.000 / mes</div></div>
+  </div>
+  <div class="badge-hero">Infraestructura digital que amplifica — no reemplaza — a su equipo</div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── CLARIDAD TOTAL ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">La pregunta clave</div>
+  <h2>¿Qué se automatiza<br><em>y qué sigue siendo humano?</em></h2>
+
+  <div class="clarity-box fu">
+    <div class="clarity-title">El visitador <span>siempre va en persona.</span></div>
+    <p class="clarity-sub">La visita médica es relación humana — eso no lo reemplaza ningún bot. Lo que automatizamos es todo lo que ocurre <strong style="color:var(--text)">antes</strong> de que el visitador salga y todo lo que pasa <strong style="color:var(--text)">después</strong> de que regresa. El visitador hace lo que solo los humanos hacen bien; la tecnología hace lo que los humanos olvidan, tardan o no escalan.</p>
+
+    <div class="flow-grid">
+      <div class="flow-step auto">
+        <span class="flow-icon">🔍</span>
+        <div class="flow-label">Automático</div>
+        <div class="flow-name">Antes de la visita</div>
+        <div class="flow-desc">El sistema le entrega al visitador la lista de médicos de la semana con datos actualizados: especialidad, consultorio, historial de contactos previos.</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step human">
+        <span class="flow-icon">🤝</span>
+        <div class="flow-label">Humano</div>
+        <div class="flow-name">La visita</div>
+        <div class="flow-desc">El visitador va al consultorio, presenta los productos, entrega muestras, resuelve dudas. Relación real, cara a cara. Eso no cambia.</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step auto">
+        <span class="flow-icon">⚙️</span>
+        <div class="flow-label">Automático</div>
+        <div class="flow-name">Después de la visita</div>
+        <div class="flow-desc">Seguimiento WhatsApp al médico, facturación, registro en CRM, alerta al gerente, recordatorio de próxima visita. Todo sin que nadie lo haga manualmente.</div>
+      </div>
+    </div>
+
+    <div class="clarity-pills">
+      <span class="cp-label">HUMANO</span>
+      <span class="cp-human">Visita presencial</span>
+      <span class="cp-human">Demostración de producto</span>
+      <span class="cp-human">Negociación y cierre</span>
+      <span class="cp-human">Relación con el médico</span>
+      &nbsp;&nbsp;
+      <span class="cp-label">AUTOMÁTICO</span>
+      <span class="cp-auto">Lista de prospectos</span>
+      <span class="cp-auto">Catálogo digital</span>
+      <span class="cp-auto">Follow-up WhatsApp</span>
+      <span class="cp-auto">Registro en CRM</span>
+      <span class="cp-auto">Facturación</span>
+      <span class="cp-auto">Recordatorios</span>
+      <span class="cp-auto">Informe gerencial</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── FLUJOS PRÁCTICOS ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Flujos reales de automatización</div>
+  <h2>Así funciona<br><em>en la práctica.</em></h2>
+  <p class="sdesc">Estos son los tres procesos principales que se automatizan. Cada uno muestra exactamente qué hace el sistema y qué hace el ser humano.</p>
+
+  <!-- FLUJO 1 -->
+  <div class="autoflow fu">
+    <div class="afh" onclick="toggle(this)">
+      <span style="font-size:20px">💬</span>
+      <span class="aft">Flujo 1 — Follow-up automático post-visita (WhatsApp)</span>
+      <span class="afs">PLAN 2 · 3</span>
+      <span style="margin-left:8px;color:var(--muted);font-size:12px">▼</span>
+    </div>
+    <div class="afb open">
+      <div class="timeline">
+        <div class="tl-step human-step">
+          <span class="tl-who h">Visitador — humano</span>
+          <strong>Sale a visitar al Dr. Ramírez</strong> (dermatólogo). Le presenta la línea de piel, le deja muestras, responde dudas. Visita normal de siempre.
+        </div>
+        <div class="tl-step human-step">
+          <span class="tl-who h">Visitador — humano</span>
+          <strong>Registra la visita en el CRM</strong> desde su celular (30 segundos): médico visitado, producto presentado, nivel de interés, próxima acción. Eso es todo lo que hace.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          <strong>24 horas después</strong>, el Dr. Ramírez recibe un WhatsApp automático de la empresa con el catálogo digital de la línea de piel y un CTA para hacer el pedido.
+          <div class="tl-ex">"Dr. Ramírez, fue un gusto saludarle ayer. Le comparto nuestra línea completa de dermatología con disponibilidad actualizada: [link]. ¿Puedo enviarle una cotización?"</div>
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          Si el médico <strong>no responde en 3 días</strong>, el sistema envía un segundo mensaje con un caso clínico del producto. Si aún no responde, el CRM marca al visitador para hacer una segunda visita.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          El gerente <strong>ve en el dashboard</strong> cuántos médicos recibieron seguimiento, cuáles respondieron y cuántos pedidos generó cada visitador. Sin preguntar, sin esperar el reporte.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO 2 -->
+  <div class="autoflow fu">
+    <div class="afh" onclick="toggle(this)">
+      <span style="font-size:20px">🧾</span>
+      <span class="aft">Flujo 2 — Facturación automática desde el pedido</span>
+      <span class="afs">PLAN 2 · 3</span>
+      <span style="margin-left:8px;color:var(--muted);font-size:12px">▼</span>
+    </div>
+    <div class="afb">
+      <div class="timeline">
+        <div class="tl-step human-step">
+          <span class="tl-who h">Médico o visitador — humano</span>
+          <strong>El médico hace un pedido</strong> — ya sea respondiendo el WhatsApp, llenando el formulario del catálogo digital, o el visitador lo registra manualmente en el CRM.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          El CRM <strong>genera la factura automáticamente</strong> con los datos del médico, productos solicitados, cantidades y precios. No hay que crearla manualmente en Excel o en otro sistema.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          La factura en PDF <strong>se envía al correo del médico o de la clínica</strong> inmediatamente. Si hay una clínica con departamento de compras, va a ese correo específico.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          El pedido aparece en el <strong>dashboard del gerente</strong> con estado: Pedido recibido → En preparación → Despachado. El visitador puede ver el estado desde su celular sin llamar a la oficina.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          <strong>7 días después del despacho</strong>, el sistema envía un WhatsApp al médico para confirmar recepción y preguntar si necesita más unidades. Si dice que sí, inicia el flujo de pedido de nuevo.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FLUJO 3 -->
+  <div class="autoflow fu">
+    <div class="afh" onclick="toggle(this)">
+      <span style="font-size:20px">🔍</span>
+      <span class="aft">Flujo 3 — Generación automática de prospectos nuevos</span>
+      <span class="afs">PLAN 3</span>
+      <span style="margin-left:8px;color:var(--muted);font-size:12px">▼</span>
+    </div>
+    <div class="afb">
+      <div class="timeline">
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático (cada lunes)</span>
+          El scraper entra a <strong>Doctoralia, Google Maps y directorios médicos</strong>, busca dermatólogos y ginecólogos en las ciudades objetivo y extrae: nombre, consultorio, teléfono, dirección, reseñas.
+        </div>
+        <div class="tl-step auto-step">
+          <span class="tl-who a">Sistema — automático</span>
+          Cruza los resultados con el CRM para <strong>identificar médicos nuevos</strong> que aún no han sido visitados. Los añade automáticamente como prospectos nuevos con estado "Sin contactar".
+        </div>
+        <div class="tl-step human-step">
+          <span class="tl-who h">Gerente — humano</span>
+          El gerente ve en el dashboard: <strong>"Esta semana hay 23 prospectos nuevos en Barranquilla"</strong>. Asigna cuáles le tocan a cada visitador. Un clic.
+        </div>
+        <div class="tl-step human-step">
+          <span class="tl-who h">Visitador — humano</span>
+          El visitador abre el CRM, ve su lista de la semana, planifica su ruta y <strong>sale a visitar</strong>. El resto del ciclo se repite.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── VS ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Situación actual vs. con Daath Studio</div>
+  <h2>Dónde están hoy.<br><em>Dónde pueden estar.</em></h2>
+  <div class="vs fu">
+    <div class="vc">
+      <div class="vch"><div class="vd"></div><div class="vct">Hoy — sin sistema</div></div>
+      <div class="vi y"><span class="ic">✓</span> Visitadores haciendo visitas presenciales</div>
+      <div class="vi y"><span class="ic">✓</span> Meta Ads activos (sin optimización médica)</div>
+      <div class="vi y"><span class="ic">✓</span> Catálogo físico o PDF por WhatsApp</div>
+      <div class="vi n"><span class="ic">✗</span> Leads viven en el celular del visitador — se pierden si rota</div>
+      <div class="vi n"><span class="ic">✗</span> Facturación manual en Excel o sistema aparte</div>
+      <div class="vi n"><span class="ic">✗</span> Sin seguimiento automático: si nadie llama, el médico no compra</div>
+      <div class="vi n"><span class="ic">✗</span> Gerente sabe el rendimiento de los visitadores a fin de mes</div>
+      <div class="vi n"><span class="ic">✗</span> Prospectos nuevos: los busca el visitador manualmente</div>
+      <div class="vi n"><span class="ic">✗</span> Ads no segmentados por especialidad médica real</div>
+    </div>
+    <div class="vc us">
+      <div class="vch"><div class="vd on"></div><div class="vct">Con Daath Studio</div></div>
+      <div class="vi y"><span class="ic">✓</span> Visitadores siguen haciendo visitas presenciales</div>
+      <div class="vi y"><span class="ic">✓</span> Meta Ads segmentados: dermatólogos y ginecólogos exactos</div>
+      <div class="vi y"><span class="ic">✓</span> Catálogo digital interactivo con analytics de apertura</div>
+      <div class="vi ex"><span class="ic">◆</span> CRM: cada lead registrado, sin importar quién visita</div>
+      <div class="vi ex"><span class="ic">◆</span> Factura generada automáticamente desde el pedido</div>
+      <div class="vi ex"><span class="ic">◆</span> WhatsApp Bot sigue al médico 24h después de cada visita</div>
+      <div class="vi ex"><span class="ic">◆</span> Dashboard live: rendimiento por visitador en tiempo real</div>
+      <div class="vi ex"><span class="ic">◆</span> Scraper entrega lista de prospectos nuevos cada semana</div>
+      <div class="vi ex"><span class="ic">◆</span> Ads retargeting: médico que abrió catálogo ve el anuncio después</div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── PLANES ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Planes estratégicos</div>
+  <h2>Tres niveles.<br><em>Techo de $2.800.000 / mes.</em></h2>
+  <p class="sdesc">Todo orientado al modelo B2B con visitadores médicos. El objetivo es que cada visita genere más ventas con menos esfuerzo manual de seguimiento.</p>
+
+  <div class="plans fu">
+    <div class="pc">
+      <div class="ptier">Plan 01 — Inicial</div>
+      <div class="pname">Base</div>
+      <div class="pline">Presencia digital + herramientas básicas</div>
+      <div class="pprice">
+        <span class="amt">$1.500.000</span><span class="per">/ mes</span>
+        <span class="note">≈ USD 362 · mínimo 3 meses</span>
+      </div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Meta Ads — 1 línea de producto</span><span class="ps">Campaña segmentada por especialidad médica (dermatología o ginecología).</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Catálogo digital — 1 línea</span><span class="ps">Link compartible desde WhatsApp del visitador. Con analytics de quién lo abre.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">12 piezas de contenido / mes</span><span class="ps">Material educativo para médicos: mecanismos de acción, casos clínicos, novedades.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">WhatsApp Bot básico</span><span class="ps">Menú de servicios, respuestas automáticas y envío de catálogo digital al médico.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Informe mensual de resultados</span><span class="ps">Alcance de ads, leads generados, tráfico de catálogo y análisis de rendimiento.</span></div></div>
+      <a href="#contacto" class="pcta">Comenzar</a>
+    </div>
+
+    <div class="pc hot">
+      <div class="ptier">Plan 02 — Recomendado</div>
+      <div class="pname">Estratégico</div>
+      <div class="pline">CRM + automatización completa del proceso</div>
+      <div class="pprice">
+        <span class="amt">$2.200.000</span><span class="per">/ mes</span>
+        <span class="note">≈ USD 532 · mínimo 3 meses</span>
+      </div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Todo el Plan Base incluido</span><span class="ps">Ads, catálogos ambas líneas, 18 piezas de contenido, WhatsApp Bot e informes.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">CRM para visitadores médicos</span><span class="ps">Cada visita registrada desde el celular. El gerente ve rendimiento por visitador en tiempo real.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">Follow-up automático post-visita</span><span class="ps">24h después de cada visita registrada el médico recibe WhatsApp con catálogo del producto presentado.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">Facturación automática desde el pedido</span><span class="ps">El pedido en el CRM genera la factura PDF y la envía automáticamente al correo del médico o clínica.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Meta Ads — ambas líneas</span><span class="ps">Dermatología y ginecología con A/B testing de creatividades y retargeting de catálogo.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Dashboard de métricas live</span><span class="ps">Visitas, pedidos, conversiones y ROI de ads en tiempo real. No espera el reporte del lunes.</span></div></div>
+      <a href="#contacto" class="pcta">Elegir este plan</a>
+    </div>
+
+    <div class="pc">
+      <div class="ptier">Plan 03 — Premium</div>
+      <div class="pname">Dominación</div>
+      <div class="pline">Inteligencia de mercado + escala total</div>
+      <div class="pprice">
+        <span class="amt">$2.800.000</span><span class="per">/ mes</span>
+        <span class="note">≈ USD 677 · mínimo 3 meses</span>
+      </div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Todo el Plan Estratégico incluido</span><span class="ps">CRM, follow-up, facturación, ads ambas líneas, dashboard y 24 piezas de contenido.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">Scraper de prospectos médicos</span><span class="ps">Lista nueva de dermatólogos y ginecólogos cada semana. Los visitadores nunca se quedan sin prospectos.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">Landing pages SEO por línea de producto</span><span class="ps">Médicos que buscan productos en Google los encuentran. Posicionamiento orgánico a largo plazo.</span></div></div>
+      <div class="pf hi"><span class="ck">✓</span><div><span class="pt">Email sequences para prospectos</span><span class="ps">Secuencia de 5 correos automáticos para nutrir al médico desde el primer contacto hasta el pedido.</span></div></div>
+      <div class="pf"><span class="ck">✓</span><div><span class="pt">Consultoría estratégica mensual</span><span class="ps">Sesión con gerencia para ajustar roadmap, analizar datos y definir objetivos del mes siguiente.</span></div></div>
+      <a href="#contacto" class="pcta">Escalar</a>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── TABLE ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Comparativa de módulos</div>
+  <h2>Qué incluye<br><em>cada plan.</em></h2>
+  <div style="overflow-x:auto" class="fu">
+    <table class="tbl">
+      <thead><tr><th style="width:44%">Módulo</th><th>Base</th><th>Estratégico</th><th>Dominación</th></tr></thead>
+      <tbody>
+        <tr class="cat"><td colspan="4">Marketing & Publicidad</td></tr>
+        <tr><td>Meta Ads — 1 línea</td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Meta Ads — ambas líneas + A/B testing</td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Catálogo digital interactivo</td><td><span class="cv">1 línea</span></td><td><span class="cv">2 líneas</span></td><td><span class="cv">2 líneas</span></td></tr>
+        <tr><td>Piezas de contenido educativo médico / mes</td><td><span class="cv">12</span></td><td><span class="cv">18</span></td><td><span class="cv">24</span></td></tr>
+        <tr><td>Landing pages SEO por línea de producto</td><td><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td></tr>
+        <tr class="cat"><td colspan="4">CRM & Visitadores</td></tr>
+        <tr><td>CRM para visitadores (registro de visitas)</td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Dashboard live — rendimiento por visitador</td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Scraper semanal de prospectos médicos</td><td><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td></tr>
+        <tr class="cat"><td colspan="4">Automatizaciones</td></tr>
+        <tr><td>WhatsApp Bot básico (FAQ + catálogo)</td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Follow-up automático post-visita (WhatsApp)</td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Facturación automática desde pedido</td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td><td><span class="cy">✓</span></td></tr>
+        <tr><td>Email sequences para prospectos (5 pasos)</td><td><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td></tr>
+        <tr class="cat"><td colspan="4">Reportes</td></tr>
+        <tr><td>Informe de resultados</td><td><span class="cv">Mensual PDF</span></td><td><span class="cv">Dashboard live</span></td><td><span class="cv">Live + consultoría</span></td></tr>
+        <tr><td>Consultoría estratégica mensual</td><td><span class="cn">—</span></td><td><span class="cn">—</span></td><td><span class="cy">✓</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── MÓDULOS TÉCNICOS ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Maquinaria técnica</div>
+  <h2>Los módulos<br><em>en detalle.</em></h2>
+  <div class="mods fu">
+    <div class="mc nb">
+      <div class="mh"><div class="mn">🗂️ CRM para Visitadores</div><span class="mb bb">A construir</span></div>
+      <p class="md">App web que cada visitador usa desde el celular. Registra: médico visitado, especialidad, producto presentado, nivel de interés, próxima acción. El gerente ve en tiempo real cuántas visitas hizo cada uno, cuántas convirtieron y qué productos interesan más por zona. Cuando un visitador rota, los contactos no se van con él.</p>
+      <div class="mt"><span class="tp">React/Vite</span><span class="tp">Node.js</span><span class="tp">SQLite</span><span class="tp">JWT auth</span><span class="tp">Mobile-ready</span></div>
+    </div>
+    <div class="mc nb">
+      <div class="mh"><div class="mn">🧾 Facturación Automática</div><span class="mb bb">A construir</span></div>
+      <p class="md">Cuando el médico hace un pedido (desde WhatsApp, catálogo digital o el visitador lo registra en el CRM), el sistema genera la factura PDF automáticamente con todos los datos, la envía al correo del médico o clínica y actualiza el estado del pedido en el dashboard. Sin Excel, sin facturación manual.</p>
+      <div class="mt"><span class="tp">n8n</span><span class="tp">PDF generation</span><span class="tp">SMTP</span><span class="tp">Node.js</span></div>
+    </div>
+    <div class="mc">
+      <div class="mh"><div class="mn">💬 WhatsApp Bot — Follow-up</div><span class="mb bb">A construir</span></div>
+      <p class="md">Conectado al CRM: cuando el visitador registra una visita, 24h después el médico recibe WhatsApp con catálogo del producto discutido. Si no responde en 72h, segundo mensaje con caso clínico. Si hace un pedido desde el bot, el flujo de facturación se activa automáticamente. Todo sin que nadie lo haga a mano.</p>
+      <div class="mt"><span class="tp">Baileys</span><span class="tp">n8n</span><span class="tp">Node.js</span><span class="tp">VPS dedicado</span></div>
+    </div>
+    <div class="mc">
+      <div class="mh"><div class="mn">📊 Dashboard Gerencial Live</div><span class="mb bb">A construir</span></div>
+      <p class="md">Panel web con acceso por contraseña. Muestra en tiempo real: visitas por visitador esta semana, pedidos activos, conversiones por línea de producto, ROI de Meta Ads, médicos en seguimiento. El gerente no pregunta "¿cuánto vendiste esta semana?" — lo ve directamente.</p>
+      <div class="mt"><span class="tp">React/Vite</span><span class="tp">Meta Graph API</span><span class="tp">Recharts</span><span class="tp">API propia</span></div>
+    </div>
+    <div class="mc nb">
+      <div class="mh"><div class="mn">🔍 Scraper de Prospectos</div><span class="mb bb">Nuevo módulo</span></div>
+      <p class="md">Cada lunes el sistema extrae de Doctoralia, Google Maps y directorios médicos: nombre del médico, especialidad, consultorio, teléfono, dirección. Los filtra por ciudad y los añade como prospectos nuevos en el CRM. Los visitadores salen con lista nueva cada semana sin buscarlos ellos mismos.</p>
+      <div class="mt"><span class="tp">Puppeteer</span><span class="tp">Node.js</span><span class="tp">n8n</span><span class="tp">VPS 12-core</span></div>
+    </div>
+    <div class="mc">
+      <div class="mh"><div class="mn">📱 Catálogo Digital</div><span class="mb ba">A medida</span></div>
+      <p class="md">Link compartible desde WhatsApp. El médico abre en el celular y ve el producto con imagen, indicaciones, mecanismo de acción, presentaciones, precios y botón de pedido. Cada apertura se registra: sabemos qué médico revisó qué producto y cuánto tiempo. Eso le dice al visitador en quién enfocarse en su próxima visita.</p>
+      <div class="mt"><span class="tp">React/Vite</span><span class="tp">Vercel</span><span class="tp">Analytics</span></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── ADD-ONS ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Servicios adicionales</div>
+  <h2>Add-ons<br><em>disponibles.</em></h2>
+  <div class="ads fu">
+    <div class="ar"><div class="al"><div class="ai">📧</div><div><div class="an">Email sequences para prospectos médicos</div><div class="as2">5 correos automáticos post-contacto del visitador. Nutre el lead hasta el pedido sin intervención humana.</div></div></div><div class="ap">$700.000</div></div>
+    <div class="ar"><div class="al"><div class="ai">🌐</div><div><div class="an">Google Ads — búsqueda activa de productos</div><div class="as2">Para médicos que ya buscan en Google los productos que ustedes distribuyen.</div></div></div><div class="ap">$1.200.000</div></div>
+    <div class="ar"><div class="al"><div class="ai">📋</div><div><div class="an">Módulo de pedidos en catálogo digital</div><div class="as2">El médico hace el pedido directamente desde el catálogo. Llega al CRM y genera factura automáticamente.</div></div></div><div class="ap">$1.500.000</div></div>
+    <div class="ar"><div class="al"><div class="ai">⭐</div><div><div class="an">Reseñas automatizadas en Google My Business</div><div class="as2">El sistema solicita reseñas a médicos satisfechos post-pedido. Mejora la reputación online de la empresa.</div></div></div><div class="ap">$400.000</div></div>
+    <div class="ar"><div class="al"><div class="ai">🎬</div><div><div class="an">Reel / video de producto individual</div><div class="as2">Producción y edición de pieza audiovisual de producto fuera del plan mensual.</div></div></div><div class="ap">$120.000</div></div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── ROADMAP ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Plan de activación</div>
+  <h2>Operativo en<br><em>30 días.</em></h2>
+  <div class="rm fu">
+    <div class="rs"><div class="rd">01</div><div><div class="rw">Semana 1 — Días 1–7</div><div class="rt">Diagnóstico + estrategia + accesos</div><p style="font-size:13px;color:var(--dim);margin-top:4px">Auditoría de ads actuales, mapeo del proceso actual de visitadores, definición de ciudades y especialidades objetivo. Acceso a Meta Business, WhatsApp de empresa y revisión del catálogo físico actual.</p><div class="ri"><span class="rp">Auditoría Meta Ads</span><span class="rp">Mapa de visitadores</span><span class="rp">Accesos técnicos</span><span class="rp">Buyer persona médico</span></div></div></div>
+    <div class="rs"><div class="rd">02</div><div><div class="rw">Semana 2 — Días 8–14</div><div class="rt">Ads optimizados + catálogo digital live</div><p style="font-size:13px;color:var(--dim);margin-top:4px">Reestructuración de campañas Meta con segmentación por especialidad médica. Catálogo digital de la primera línea publicado y listo para compartir por WhatsApp.</p><div class="ri"><span class="rp">Ads relanzados</span><span class="rp">Segmentación médica</span><span class="rp">Catálogo digital</span><span class="rp">Primeras piezas</span></div></div></div>
+    <div class="rs"><div class="rd">03</div><div><div class="rw">Semana 3 — Días 15–21</div><div class="rt">CRM + Bot + Facturación activados</div><p style="font-size:13px;color:var(--dim);margin-top:4px">CRM desplegado con visitadores onboardeados (sesión de 30 min de capacitación). WhatsApp Bot activo. Módulo de facturación conectado. Primeras visitas registradas en el sistema.</p><div class="ri"><span class="rp">CRM activo</span><span class="rp">Visitadores en sistema</span><span class="rp">WhatsApp Bot live</span><span class="rp">Facturación conectada</span></div></div></div>
+    <div class="rs"><div class="rd">04</div><div><div class="rw">Semana 4 — Días 22–30</div><div class="rt">Dashboard live + primera revisión gerencial</div><p style="font-size:13px;color:var(--dim);margin-top:4px">Dashboard de métricas entregado. Reunión de resultados con gerencia: datos reales de las primeras 3 semanas y ajuste de estrategia para el mes 2.</p><div class="ri"><span class="rp">Dashboard activo</span><span class="rp">Reporte semana 1–3</span><span class="rp">Ajuste de ads</span><span class="rp">Proyección mes 2</span></div></div></div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── RESULTADOS ─── -->
+<section>
+<div class="wrap">
+  <div class="tag">Resultados proyectados</div>
+  <h2>Métricas que<br><em>la gerencia entiende.</em></h2>
+  <div class="res fu">
+    <div class="rc"><div class="rn">0</div><div class="rl">Leads perdidos por falta de seguimiento — el bot hace el follow-up por cada visitador</div></div>
+    <div class="rc"><div class="rn">3x</div><div class="rl">Más prospectos calificados por semana gracias al scraper de directorios médicos</div></div>
+    <div class="rc"><div class="rn">+40%</div><div class="rl">Mejora en conversión de ads al segmentar por especialidad médica real en Facebook</div></div>
+    <div class="rc"><div class="rn">100%</div><div class="rl">Visitas registradas — ningún lead se pierde cuando un visitador rota o renuncia</div></div>
+    <div class="rc"><div class="rn">Auto</div><div class="rl">Facturación generada y enviada sin intervención humana desde cada pedido registrado</div></div>
+    <div class="rc"><div class="rn">Live</div><div class="rl">Rendimiento de cada visitador visible para gerencia en tiempo real, no a fin de mes</div></div>
+  </div>
+</div>
+</section>
+
+<div class="hr"></div>
+
+<!-- ─── CTA ─── -->
+<section id="contacto">
+<div class="wrap" style="text-align:center">
+  <div class="tag" style="justify-content:center">Siguiente paso</div>
+  <h2 style="text-align:center">¿Activamos<br><em>la maquinaria?</em></h2>
+  <p style="font-size:16px;color:var(--dim);max-width:460px;margin:0 auto 40px;line-height:1.7">30 minutos de diagnóstico son suficientes para definir qué módulos tienen mayor impacto inmediato en el equipo de visitadores.</p>
+  <div style="display:flex;justify-content:center;gap:12px;flex-wrap:wrap">
+    <a href="https://wa.me/57XXXXXXXXXX" style="display:inline-flex;align-items:center;gap:8px;background:var(--blue);color:var(--bg);padding:14px 28px;border-radius:6px;font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;text-decoration:none">💬 WhatsApp</a>
+    <a href="mailto:hola@daathstudio.com" style="display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-b);color:var(--blue);padding:14px 28px;border-radius:6px;font-family:var(--fm);font-size:11px;letter-spacing:2px;text-transform:uppercase;font-weight:700;text-decoration:none">✉️ Email</a>
+  </div>
+</div>
+</section>
+
+<footer class="ft">
+<div class="wrap">
+  <div class="fl">Daath<span>Studio</span></div>
+  <div class="fs">Infraestructura digital que trabaja mientras duermes.</div>
+  <div class="fc">
+    <div class="fci"><div class="l">Web</div><div class="v">daathstudio.com</div></div>
+    <div class="fci"><div class="l">Email</div><div class="v">hola@daathstudio.com</div></div>
+    <div class="fci"><div class="l">WhatsApp</div><div class="v">+57 310 000 0000</div></div>
+    <div class="fci"><div class="l">Precios</div><div class="v">COP — IVA no incluido</div></div>
+  </div>
+  <div style="margin-top:36px;font-family:var(--fm);font-size:10px;color:var(--muted);letter-spacing:1px">
+    © 2025 DAATH STUDIO — CONFIDENCIAL — PREPARADO EXCLUSIVAMENTE PARA [EMPRESA]
+  </div>
+</div>
+</footer>
+
+<script>
+  function toggle(header){
+    const box=header.closest('.autoflow');
+    const body=box.querySelector('.afb');
+    const isOpen=body.classList.contains('open');
+    document.querySelectorAll('.afb').forEach(b=>b.classList.remove('open'));
+    if(!isOpen) body.classList.add('open');
+  }
+  const obs=new IntersectionObserver(e=>e.forEach(x=>x.isIntersecting&&x.target.classList.add('vis')),{threshold:.07});
+  document.querySelectorAll('.fu').forEach(el=>obs.observe(el));
+  document.querySelectorAll('.pc').forEach((c,i)=>{c.style.transitionDelay=`${i*.1}s`;c.classList.add('fu');obs.observe(c);});
+</script>
+</body>
+</html>
